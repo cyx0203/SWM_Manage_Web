@@ -1,0 +1,74 @@
+import SmartForm from "@/components/SmartForm";
+import { useEffect, useRef } from "react";
+import { Row, Col, Button, message } from "antd";
+import { Ajax } from "@/core/trade";
+
+export default (props) => {
+  const {
+    record,
+    onSuccess,
+  } = props;
+
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 5 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 14 },
+    }
+  }
+
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    formRef.current.getForm().setFieldsValue({ ...record });
+  }, []);
+
+  const getFields = () => {
+    return [
+      { type: 'input', disabled:  true,  field: 'merchantId', label: '商户代码' },
+      { type: 'input',  field: 'hospitalName', label: '医院名称' },
+    ]
+  }
+
+  const refForm = (e) => {
+    formRef.current = e;
+  }
+
+  const handleSubmit = (values) => {
+    // 更新医院名称,base表
+    Ajax.Post('BasicUrl', '/manage/hospital.updateNameById',
+    {
+      hospitalName : values.hospitalName,
+      id : record.hospitalId
+    },
+    (ret: any) => {
+        if(ret.success){
+          message.success('修改成功');
+        }else{
+          message.error('修改失败');
+        }
+        onSuccess();
+    }
+    );
+  }
+
+  return (
+    <SmartForm
+      formItemLayout={formItemLayout}
+      ref={(e) => refForm(e)}
+      onSubmit={handleSubmit}
+      cols={1}
+      formLayout="horizontal"
+      fields={getFields()}
+    >
+      <Row gutter={16}>
+        <Col span={2} offset={5}>
+          <Button type="primary" htmlType="submit">提交</Button>
+        </Col>
+      </Row>
+    </SmartForm>
+  );
+}

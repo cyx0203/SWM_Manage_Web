@@ -1,0 +1,83 @@
+.wrapper {
+  // background-color: #eee;
+}
+
+.delete {
+  color: var(--ant-error-color);
+  &:hover {
+    color: var(--ant-error-color-hover);
+  }
+
+  &:active {
+    color: var(--ant-error-color-active);
+  }
+}
+
+.uploadAvatar {
+  cursor: pointer;
+}
+
+.avatarWrapper {
+  position: relative;
+}
+
+.uploadBtn {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  color: white;
+  font-size: 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all ease 0.25s;
+}
+
+.avatarWrapper:hover .uploadBtn {
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.35);
+  opacity: 0.8;
+}
+
+.editForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+:global {
+  .grid {
+    display: grid;
+  }
+
+  .row-span-1 {
+    grid-row: span 1 / span 1;
+  }
+
+  .row-span-2 {
+    grid-row: span 2 / span 2;
+  }
+
+  .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
