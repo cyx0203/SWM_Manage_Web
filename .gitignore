@@ -33,9 +33,6 @@ functions/*
 .umi
 .umi-production
 
-/src/.umi
-/src/.umi-production
-
 # screenshot
 screenshot
 .firebase
